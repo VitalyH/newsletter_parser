@@ -13,13 +13,14 @@ public class Main {
 
             String line;        // Line of text with markers
             String cleanLine;   // Line of text w/o markers
+            // A code snippets to insert in output file
             String div = "</div></div>";
             String spanLi = "</span></li>";
             String spanLiUlEnd = "</span></li></ul></div>";
             String header = "<div data-change=\"tr\"><div align=\"left\" class=\"title\" style=\"padding: 38px 0 28px; line-height: 36px; font-size: 31px; font-weight: 300; color: #171313!important; font-family: 'Roboto', Arial, sans-serif;\" data-change=\"td\" colspan=\"2\" valign=\"middle\">";
             String paragraph = "<div data-change=\"tr\"><div class=\"td\" style=\"padding-bottom: 35px; color: #777777; font-size: 16px; font-weight: 300; line-height: 22px; font-family: 'Roboto', Arial, sans-serif;\" data-change=\"td\" colspan=\"2\">";
             String separator = "<div data-change=\"tr\"><div class=\"divider\" data-change=\"td\" colspan=\"2\"><div style=\"width: 333px; height: 2px; background-color: #d9d9d9;\"></div></div></div>";
-            String listStart ="<div data-change=\"tr\"><div class=\"td\" style=\"padding-bottom: 35px; color: #777777; font-size: 16px; font-weight: 300; line-height: 22px; font-family: 'Roboto', Arial, sans-serif;\" data-change=\"td\" colspan=\"2\"> <ul class=\"ul\" style=\"margin: 0; padding: 0 0 0 40px\"> <li class=\"li\" style=\"color: #171313; padding: 5px 11px;\"><span style=\"color: #777777\">";
+            String listStart = "<div data-change=\"tr\"><div class=\"td\" style=\"padding-bottom: 35px; color: #777777; font-size: 16px; font-weight: 300; line-height: 22px; font-family: 'Roboto', Arial, sans-serif;\" data-change=\"td\" colspan=\"2\"> <ul class=\"ul\" style=\"margin: 0; padding: 0 0 0 40px\"> <li class=\"li\" style=\"color: #171313; padding: 5px 11px;\"><span style=\"color: #777777\">";
             String list = "<li class=\"li\" style=\"color: #171313; padding: 5px 11px;\"><span style=\"color: #777777\">";
             String reporter = "<div class=\"include\" data-change=\"tr\">[include]/www/htdocs/rudelfi/includes/newsletter2018/reporter.inc[/include]</div>";
             String fotoLeftStart = "<div data-change=\"tr\"><div class=\"td\" valign=\"top\" colspan=\"2\" style=\"padding-bottom: 35px; position: relative; color: #777777; font-size: 16px; font-weight: 300; line-height: 22px; font-family: 'Roboto', Arial, sans-serif; overflow:auto;\" data-change=\"td\"> <div class=\"text-first\" style=\"width: 412px; float: right;\">";
@@ -32,30 +33,55 @@ public class Main {
             // Process the input file
             while ((line = br.readLine()) != null) {
 
-                // Split the string
-                String tempArray[] = line.split("==");
+                // Correctly skip empty lines and lines with whitespaces
+                line = line.trim();
+                if (!line.isEmpty()) {
 
-                // Clean the string from the marker
-                cleanLine = tempArray[1];
+                    // Split the string
+                    String tempArray[] = line.split("==");
 
-                // Check if line has needed marker
-                // Add the code accordingly
-                switch (tempArray[0]) {
-                    case "h": cleanLine = header + cleanLine + div; break;
-                    case "p": cleanLine = paragraph + cleanLine + div; break;
-                    case "s": cleanLine = separator; break;
-                    case "ls": cleanLine = listStart + cleanLine + spanLi; break;
-                    case "ll": cleanLine = list + cleanLine + spanLi; break;
-                    case "le": cleanLine = list + cleanLine + spanLiUlEnd; break;
-                    case "r": cleanLine = reporter; break;
-                    case "fl": cleanLine = fotoLeftStart + cleanLine + fotoLeftEnd; break;
-                    case "fr": cleanLine = fotoRightStart + cleanLine + fotoRightEnd; break;
-                    case "sign": cleanLine = signStart + cleanLine + signEnd; break;
+                    // Clean the string from the marker
+                    cleanLine = tempArray[1];
+
+                    // Check if line has needed marker
+                    // Add the code accordingly
+                    switch (tempArray[0]) {
+                        case "h":
+                            cleanLine = header + cleanLine + div;
+                            break;
+                        case "p":
+                            cleanLine = paragraph + cleanLine + div;
+                            break;
+                        case "s":
+                            cleanLine = separator;
+                            break;
+                        case "ls":
+                            cleanLine = listStart + cleanLine + spanLi;
+                            break;
+                        case "ll":
+                            cleanLine = list + cleanLine + spanLi;
+                            break;
+                        case "le":
+                            cleanLine = list + cleanLine + spanLiUlEnd;
+                            break;
+                        case "r":
+                            cleanLine = reporter;
+                            break;
+                        case "fl":
+                            cleanLine = fotoLeftStart + cleanLine + fotoLeftEnd;
+                            break;
+                        case "fr":
+                            cleanLine = fotoRightStart + cleanLine + fotoRightEnd;
+                            break;
+                        case "sign":
+                            cleanLine = signStart + cleanLine + signEnd;
+                            break;
+                    }
+                    // Write result into the output file
+                    writer.write(cleanLine);
+                    writer.newLine();
+
                 }
-                // Write result into the output file
-                writer.write(cleanLine);
-                writer.newLine();
-
             }
 
         } catch (IOException e) {
