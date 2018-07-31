@@ -29,6 +29,14 @@ public class Main {
             String fotoRightEnd = "</div><div class=\"image-first inverse-image\" style=\"position: relative; width: 397px; float: right;\"><img width=\"397\" height=\"221\" style=\"display: block;\" src=\"http://placehold.it/397x221\"><div class=\"img-author\" style=\"height: 34px; padding: 0 9px; line-height: 34px; font-size: 12px; font-weight: 400; background-color: #f7f7f7; color: #616161;\">Фото: ??????</div></div>";
             String signStart = "<div data-change=\"tr\"><div style=\"overflow:auto;\" data-change=\"td\" colspan=\"2\"> <img width=\"60\" height=\"60\" class=\"img-writer\" style=\"float: left; width: 60px; height: 60px; margin: 0 22px 43px 62px; display: inline-block!important; vertical-align: top;\" alt=\"name surname\" src=\"http://g1.delphi.lv/wd/f/9723/4QE6UW_vitaalijs.jpeg\"><div class=\"img-desc\" style=\"float: left; display: inline-block!important; vertical-align: top; color: #777777; font-size: 15px; font-family: 'Roboto', Arial, sans-serif;\">Ваш, <br>";
             String signEnd = "<br><b style=\"color: #171313\">Виталий Хлапковский</b></div>";
+            // Code to replace inside strings
+            String originalBoldStart = "<strong>";
+            String newBoldStart = "<b style=\"color: #171313\">";
+            String originalBoldEnd = "</strong>";
+            String newBoldEnd = "</b>";
+            String originalWebLinkStart = "<a href=\"";
+            String newWebLinkStart = "<a style=\"color: #0099ff; text-decoration: none\" href=\"";
+
 
             // Process the input file
             while ((line = br.readLine()) != null) {
@@ -77,6 +85,15 @@ public class Main {
                             cleanLine = signStart + cleanLine + signEnd;
                             break;
                     }
+
+                    // Replace "bold" and links part of code inside the string
+                    if (cleanLine.contains(originalBoldStart) || cleanLine.contains(originalBoldEnd)
+                            || cleanLine.contains(originalWebLinkStart)) {
+                        cleanLine = cleanLine.replace(originalBoldStart, newBoldStart);
+                        cleanLine = cleanLine.replace(originalBoldEnd, newBoldEnd);
+                        cleanLine = cleanLine.replace(originalWebLinkStart, newWebLinkStart);
+                    }
+
                     // Write result into the output file
                     writer.write(cleanLine);
                     writer.newLine();
