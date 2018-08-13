@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 
 public class Main {
@@ -5,8 +7,24 @@ public class Main {
     final private static String INPUT_FILE = "input.txt";
     final private static String OUTPUT_FILE = "output.txt";
 
-    public static void main(String[] args) {
+    private static void createAndShowGUI() {
+        //Create and set up the window
+        JFrame frame = new JFrame("N-letter parser");
 
+        // What happens when the frame closes
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Dummy content inside
+        JLabel emptyLabel = new JLabel("Dummy text");
+        emptyLabel.setPreferredSize(new Dimension(500, 1000));
+        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+
+        //Size the frame and display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private static void newsletterParser() {
         // I/O operations
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(INPUT_FILE)));
              BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE))) {
@@ -97,7 +115,7 @@ public class Main {
                         case "sign":
                             cleanLine = signStart + cleanLine + signEnd;
                             break;
-                        // "100 let" project' case
+                        // "100 years" project' case
                         case "100let":
                             cleanLine = cleanLine.replace(shortDash, longDash);
                             cleanLine = cleanLine.replace(extraShortDash, longDash);
@@ -121,6 +139,20 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                createAndShowGUI();
+            }
+        });
+
+        // Run parser
+        newsletterParser();
     }
 }
 
