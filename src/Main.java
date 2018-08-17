@@ -64,7 +64,10 @@ public class Main {
             String quoteToReplace = "\"";
             String crookedQuoteOpen = "“";
             String crookedQuoteClose = "”";
-
+            // "Sliders"
+            String sliderStart = "<!--page_toc type=\"list\" tabs_style=\"titles\"--><!--page_break title=\"";
+            String sliderEnd = "tab_title=\"\"-->";
+            String sliderFinal = "<!--page_toc type=\"list\" tabs_style=\"titles\"-->";
 
             // Process the input file
             while ((line = br.readLine()) != null) {
@@ -114,6 +117,12 @@ public class Main {
                             break;
                         case "sign":
                             cleanLine = signStart + cleanLine + signEnd;
+                            break;
+                        case "ss":
+                           cleanLine = sliderStart + cleanLine + sliderEnd;
+                            break;
+                        case "sf":
+                            cleanLine = sliderFinal;
                             break;
                     }
 
