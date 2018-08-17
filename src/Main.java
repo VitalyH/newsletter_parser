@@ -69,14 +69,12 @@ public class Main {
             // Process the input file
             while ((line = br.readLine()) != null) {
 
-                // Correctly work with empty lines and lines with whitespaces
                 // Remove extra whitespaces
-                // Keep empty lines in new file
                 line = line.trim();
-                if (line.isEmpty()) {
-                    cleanLine = " ";
 
-                } else {
+                // Skip empty lines and lines which don't need modification
+                if (!line.isEmpty() && line.contains("==")) {
+
                     // Split the string
                     String tempArray[] = line.split("==");
 
@@ -117,15 +115,15 @@ public class Main {
                         case "sign":
                             cleanLine = signStart + cleanLine + signEnd;
                             break;
-                        // "100 years" project' case
-                        case "100let":
-                            cleanLine = cleanLine.replace(shortDash, longDash);
-                            cleanLine = cleanLine.replace(extraShortDash, longDash);
-                            break;
                     }
+
+                } else {
+                    // Keep empty and unmodified lines intact
+                    cleanLine = line;
+
                 }
 
-                // Replace "bold" text, web-links, quotes inside the string
+                // Replace dashes, "bold" text, web-links, quotes inside the string
                 cleanLine = cleanLine.replace(originalBoldStart, newBoldStart);
                 cleanLine = cleanLine.replace(originalBoldEnd, newBoldEnd);
                 cleanLine = cleanLine.replace(originalWebLinkStart, newWebLinkStart);
@@ -133,6 +131,8 @@ public class Main {
                 cleanLine = cleanLine.replace(guillemetClose, quoteToReplace);
                 cleanLine = cleanLine.replace(crookedQuoteOpen, quoteToReplace);
                 cleanLine = cleanLine.replace(crookedQuoteClose, quoteToReplace);
+                cleanLine = cleanLine.replace(shortDash, longDash);
+                cleanLine = cleanLine.replace(extraShortDash, longDash);
 
                 // Write result into the output file
                 writer.write(cleanLine);
