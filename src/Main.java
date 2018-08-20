@@ -1,11 +1,11 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 
 public class Main {
 
     final private static String INPUT_FILE = "input.txt";
     final private static String OUTPUT_FILE = "output.txt";
+
 
     private static void createAndShowGUI() {
         //Create and set up the window
@@ -14,12 +14,10 @@ public class Main {
         // What happens when the frame closes
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Dummy content inside
-        JLabel emptyLabel = new JLabel("Dummy text");
-        emptyLabel.setPreferredSize(new Dimension(500, 1000));
-        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+        // Add content to the window
+        frame.add(new InputOutputParser());
 
-        //Size the frame and display the window.
+        //Display the window.
         frame.pack();
         frame.setVisible(true);
     }
