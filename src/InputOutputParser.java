@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+
 /**
  * InputOutputParser class implements text parser for
  * Newsletter, "100 Years 100 Days" project, sliders inside CMS
@@ -12,9 +13,20 @@ import javax.swing.JPanel;
 
 public class InputOutputParser extends JPanel implements ActionListener {
 
+    // ActionListener
+    public void actionPerformed(ActionEvent e) {
+    }
+
     // Input and output fields
     private JTextArea inputFieldNoScroll = new JTextArea();
     private JTextArea outputFieldNoScroll = new JTextArea();
+
+    // Buttons with listeners
+    private JButton runButton = new JButton("Run!");
+    private JButton clearButton = new JButton("Clear all!");
+    private ClickListener runListener = new ClickListener();
+    private ClickListener clearListener = new ClickListener();
+
 
     /**
      * Constructor
@@ -32,37 +44,55 @@ public class InputOutputParser extends JPanel implements ActionListener {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // Labels
-        JLabel inputLabel = new JLabel("Input");
-        JLabel outputLabel = new JLabel("Output");
+        // JLabel inputLabel = new JLabel("Input");
+        // JLabel outputLabel = new JLabel("Output");
 
-        // Button with listener
-        JButton runButton = new JButton("Run!");
+        // "Run" button
         runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        runButton.addActionListener(this);
+        runButton.addActionListener(runListener);
 
-        // Input field with scroll
+        // "Clear" button
+        clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clearButton.addActionListener(clearListener);
+
+        // Input field
+        // With text wrap
+        inputFieldNoScroll.setLineWrap(true);
+        inputFieldNoScroll.setWrapStyleWord(true);
+        // Add scroll
         JScrollPane inputField = new JScrollPane(inputFieldNoScroll);
-        inputField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        inputField.setPreferredSize(new Dimension(500, 700));
+        inputField.setPreferredSize(new Dimension(500, 400));
 
         // Output field with scroll
         JScrollPane outputField = new JScrollPane(outputFieldNoScroll);
         outputField.setPreferredSize(new Dimension(500, 200));
-        outputField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add all components
-        panel.add(inputLabel);
         panel.add(inputField);
         panel.add(runButton);
-        panel.add(outputLabel);
         panel.add(outputField);
         add(panel);
+        panel.add(clearButton);
     }
 
-    // Run parser by clicking on the "Run" button
-    public void actionPerformed(ActionEvent e) {
-        newsletterParser();
+
+    private class ClickListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            // Run parser by clicking on the "Run" button
+            if (e.getSource() == runButton) {
+                newsletterParser();
+            }
+
+            // Clear all by clicking on the "Clear all!" button
+            if (e.getSource() == clearButton) {
+                inputFieldNoScroll.setText("");
+                outputFieldNoScroll.setText("");
+            }
+
+        }
     }
+
 
     /**
      * Main parser
@@ -107,6 +137,9 @@ public class InputOutputParser extends JPanel implements ActionListener {
         String sliderStart = "<!--page_toc type=\"list\" tabs_style=\"titles\"--><!--page_break title=\"";
         String sliderEnd = "tab_title=\"\"-->";
         String sliderFinal = "<!--page_toc type=\"list\" tabs_style=\"titles\"-->";
+
+        // Clear output field
+        outputFieldNoScroll.setText("");
 
         // Process the input file
         for (String line : inputFieldNoScroll.getText().split("\\n")) {
@@ -189,10 +222,10 @@ public class InputOutputParser extends JPanel implements ActionListener {
     }
 }
 
-    /**
-     *  File-based parser, used in the v.1.
-     *  For future reference
-     */
+/**
+ * File-based parser, used in the v.1.
+ * For future reference
+ */
 //    final private static String INPUT_FILE = "input.txt";
 //    final private static String OUTPUT_FILE = "output.txt";
 //    private void fileParser() {
