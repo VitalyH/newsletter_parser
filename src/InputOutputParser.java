@@ -44,8 +44,14 @@ public class InputOutputParser extends JPanel implements ActionListener {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         // Labels
-        // JLabel inputLabel = new JLabel("Input");
-        // JLabel outputLabel = new JLabel("Output");
+        String clue1Text = "h==Header, p==Paragraph, s==Separator";
+        String clue2Text = "ls==List Start, ll==List, le==List End";
+        String clue3Text = "fl==Photo Left, fr==Photo Right, r==Reporter";
+        String clue4Text = "sign==Signature, ss==Slider, sf==Slider Final";
+        JLabel clue1 = new JLabel(clue1Text);
+        JLabel clue2 = new JLabel(clue2Text);
+        JLabel clue3 = new JLabel(clue3Text);
+        JLabel clue4 = new JLabel(clue4Text);
 
         // "Run" button
         runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -68,11 +74,15 @@ public class InputOutputParser extends JPanel implements ActionListener {
         outputField.setPreferredSize(new Dimension(500, 200));
 
         // Add all components
+        panel.add(clue1);
+        panel.add(clue2);
+        panel.add(clue3);
+        panel.add(clue4);
         panel.add(inputField);
         panel.add(runButton);
         panel.add(outputField);
-        add(panel);
         panel.add(clearButton);
+        add(panel);
     }
 
 
