@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -128,6 +127,7 @@ public class InputOutputParser extends JPanel implements ActionListener {
         // Dashes and quotes
         String shortDash = " - ";
         String extraShortDash = " – ";
+        String doubleDash = "--";
         String longDash = " — ";
         String guillemetOpen = "«";
         String guillemetClose = "»";
@@ -210,17 +210,18 @@ public class InputOutputParser extends JPanel implements ActionListener {
             }
 
             // Replace dashes, "bold" text, web-links, quotes inside the string
-            cleanLine = cleanLine.replace(originalBoldStart, newBoldStart);
-            cleanLine = cleanLine.replace(originalBoldEnd, newBoldEnd);
-            cleanLine = cleanLine.replace(originalWebLinkStart, newWebLinkStart);
-            cleanLine = cleanLine.replace(guillemetOpen, quoteToReplace);
-            cleanLine = cleanLine.replace(guillemetClose, quoteToReplace);
-            cleanLine = cleanLine.replace(crookedQuoteOpen, quoteToReplace);
-            cleanLine = cleanLine.replace(crookedQuoteClose, quoteToReplace);
-            cleanLine = cleanLine.replace(shortDash, longDash);
-            cleanLine = cleanLine.replace(extraShortDash, longDash);
+            cleanLine = cleanLine.replace(originalBoldStart, newBoldStart)
+                    .replace(originalBoldEnd, newBoldEnd)
+                    .replace(originalWebLinkStart, newWebLinkStart)
+                    .replace(guillemetOpen, quoteToReplace)
+                    .replace(guillemetClose, quoteToReplace)
+                    .replace(crookedQuoteOpen, quoteToReplace)
+                    .replace(crookedQuoteClose, quoteToReplace)
+                    .replace(shortDash, longDash)
+                    .replace(extraShortDash, longDash)
+                    .replace(doubleDash, longDash);
 
-            // Write result into the output file
+            // Write result into the output field
             outputFieldNoScroll.append(cleanLine + "\n");
         }
 
