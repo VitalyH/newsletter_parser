@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -135,7 +136,7 @@ public class InputOutputParser extends JPanel implements ActionListener {
         String crookedQuoteClose = "”";
         // "Sliders"
         String sliderStart = "<!--page_toc type=\"list\" tabs_style=\"titles\"--><!--page_break title=\"";
-        String sliderEnd = "tab_title=\"\"-->";
+        String sliderEnd = "\" tab_title=\"\"-->";
         String sliderFinal = "<!--page_toc type=\"list\" tabs_style=\"titles\"-->";
 
         // Clear output field
@@ -154,7 +155,11 @@ public class InputOutputParser extends JPanel implements ActionListener {
                 String tempArray[] = line.split("==");
 
                 // Clean the string from the marker
-                cleanLine = tempArray[1];
+                if (tempArray.length > 1) {
+                    cleanLine = tempArray[1];
+                } else {
+                    cleanLine = "";
+                }
 
                 // Check if line have needed marker
                 // Add the code accordingly
