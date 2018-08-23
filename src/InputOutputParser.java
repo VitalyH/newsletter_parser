@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
@@ -23,8 +25,10 @@ public class InputOutputParser extends JPanel implements ActionListener {
 
     // Buttons with listeners
     private JButton runButton = new JButton("Run!");
+    private JButton copyButton = new JButton ("Copy!");
     private JButton clearButton = new JButton("Clear all!");
     private ClickListener runListener = new ClickListener();
+    private ClickListener copyListener = new ClickListener();
     private ClickListener clearListener = new ClickListener();
 
 
@@ -57,6 +61,10 @@ public class InputOutputParser extends JPanel implements ActionListener {
         runButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         runButton.addActionListener(runListener);
 
+        //"Copy" button
+        copyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        copyButton.addActionListener(copyListener);
+
         // "Clear" button
         clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         clearButton.addActionListener(clearListener);
@@ -80,6 +88,7 @@ public class InputOutputParser extends JPanel implements ActionListener {
         panel.add(clue4);
         panel.add(inputField);
         panel.add(runButton);
+        panel.add(copyButton);
         panel.add(outputField);
         panel.add(clearButton);
         add(panel);
@@ -94,6 +103,14 @@ public class InputOutputParser extends JPanel implements ActionListener {
                 newsletterParser();
             }
 
+            // Copy text from output field to clipboard
+            if (e.getSource() == copyButton) {
+                StringSelection stringSelection = new StringSelection (outputFieldNoScroll.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit ().getSystemClipboard ();
+                clipboard.setContents (stringSelection, null);
+
+            }
+
             // Clear all by clicking on the "Clear all!" button
             if (e.getSource() == clearButton) {
                 inputFieldNoScroll.setText("");
@@ -102,7 +119,6 @@ public class InputOutputParser extends JPanel implements ActionListener {
 
         }
     }
-
 
     /**
      * Main parser
@@ -137,7 +153,6 @@ public class InputOutputParser extends JPanel implements ActionListener {
         // Dashes and quotes
         String shortDash = " - ";
         String extraShortDash = " – ";
-        String doubleDash = "--";
         String longDash = " — ";
         String guillemetOpen = "«";
         String guillemetClose = "»";
@@ -228,8 +243,7 @@ public class InputOutputParser extends JPanel implements ActionListener {
                     .replace(crookedQuoteOpen, quoteToReplace)
                     .replace(crookedQuoteClose, quoteToReplace)
                     .replace(shortDash, longDash)
-                    .replace(extraShortDash, longDash)
-                    .replace(doubleDash, longDash);
+                    .replace(extraShortDash, longDash);
 
             // Write result into the output field
             outputFieldNoScroll.append(cleanLine + "\n");
