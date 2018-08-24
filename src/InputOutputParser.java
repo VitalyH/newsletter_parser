@@ -163,6 +163,15 @@ public class InputOutputParser extends JPanel implements ActionListener {
         String sliderStart = "<!--page_toc type=\"list\" tabs_style=\"titles\"--><!--page_break title=\"";
         String sliderEnd = "\" tab_title=\"\"-->";
         String sliderFinal = "<!--page_toc type=\"list\" tabs_style=\"titles\"-->";
+        // "100 Years 100 days" project
+        String photoLat = "Foto";
+        String photoRus = "Фото";
+        String archLat = "Latvijas Nacionālā arhīva Latvijas Valsts kinofotofonodokumentu arhīvs";
+        String archRus = "Латвийский государственный архив кино- и фотодокументов Латвийского национального архива";
+        String janisValtersLat = "Jānis Valters Ezeriņš";
+        String janisValtersRus = "Янис Валтерс Эзериньш";
+        String screenshotLat = "Ekrānuzņēmums";
+        String screenshotRus = "Скриншот";
 
         // Clear output field
         outputFieldNoScroll.setText("");
@@ -243,7 +252,12 @@ public class InputOutputParser extends JPanel implements ActionListener {
                     .replace(crookedQuoteOpen, quoteToReplace)
                     .replace(crookedQuoteClose, quoteToReplace)
                     .replace(shortDash, longDash)
-                    .replace(extraShortDash, longDash);
+                    .replace(extraShortDash, longDash)
+                    .replace(photoLat, photoRus)
+                    .replace(archLat, archRus)
+                    .replace(janisValtersLat, janisValtersRus)
+                    .replace(screenshotLat, screenshotRus);
+
 
             // Write result into the output field
             outputFieldNoScroll.append(cleanLine + "\n");
