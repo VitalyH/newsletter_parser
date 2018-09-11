@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="newsletter_parser:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/newsletter_parser_jar</output-path>
+    <root id="archive" name="newsletter_parser.jar">
+      <element id="module-output" name="newsletter_parser" />
+    </root>
+  </artifact>
+</component>
