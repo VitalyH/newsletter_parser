@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * ParserEngine class implements text parser for
  * Newsletter, "100 Years 100 Days" project, sliders inside CMS
@@ -5,7 +7,7 @@
 
 class ParserEngine {
 
-    static void parseTextFromInputField() {
+    static void parseTextFromInputField(JTextArea inputField) {
         String modifiedLineOfText;
         // A code snippets for newsletter.
         String div = "</div></div>";
@@ -54,8 +56,10 @@ class ParserEngine {
         String janisValtersRus = "Янис Валтерс Эзериньш";
         String screenshotLat = "Ekrānuzņēmums";
         String screenshotRus = "Скриншот";
+        String weatherLat = "Latvijas Vides, ģeoloģijas un meteoroloģijas centrs";
+        String weatherRus = "Латвийский центр окружающей среды, геологии и метеорологии";
 
-        for (String lineOfTextFromInputField : ParserGui.getInputField().getText().trim().split("\\n")) {
+        for (String lineOfTextFromInputField : inputField.getText().trim().split("\\n")) {
 
             String arrayWithMarkerAndLineOfText[] = lineOfTextFromInputField.split("==");
 
@@ -120,13 +124,10 @@ class ParserEngine {
                     .replace(photoLat, photoRus)
                     .replace(archLat, archRus)
                     .replace(janisValtersLat, janisValtersRus)
-                    .replace(screenshotLat, screenshotRus);
+                    .replace(screenshotLat, screenshotRus)
+                    .replace(weatherLat, weatherRus);
 
             ParserGui.getOutputField().append(modifiedLineOfText + "\n");
         }
     }
 }
-
-
-
-

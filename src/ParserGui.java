@@ -71,7 +71,7 @@ public class ParserGui extends JPanel implements ActionListener {
 
             if (e.getSource() == runButton) {
                 outputField.setText("");
-                ParserEngine.parseTextFromInputField();
+                ParserEngine.parseTextFromInputField(inputField);
             }
 
             if (e.getSource() == copyButton) {
